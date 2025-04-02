@@ -10,7 +10,7 @@ import numpy as np
 
 from tensorflow.keras.models import Sequential #type:ignore
 from tensorflow.keras.layers import InputLayer, Dense #type:ignore
-from tensorflow.keras import utils as np_utils
+from tensorflow.keras import utils as np_utils #type:ignore
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split 
 
@@ -27,8 +27,6 @@ print(y)
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(y)
 
-y = np_utils.to_categorical(y)
-
 X_treinamento, X_teste, y_treinamento, y_teste = train_test_split(X, y, train_size=0.25)
 
 
@@ -38,7 +36,7 @@ redeNeural = Sequential()
 redeNeural.add(InputLayer(shape = 6,))
 redeNeural.add(Dense(units = 6, activation = 'relu', kernel_initializer = 'random_uniform'))
 redeNeural.add(Dense(units = 6, activation = 'relu', kernel_initializer = 'random_uniform'))
-redeNeural.add(Dense(units = 2, activation = 'softmax'))
+redeNeural.add(Dense(units = 1, activation = 'sigmoide'))
 
 redeNeural.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
 
